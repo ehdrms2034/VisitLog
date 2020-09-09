@@ -1,6 +1,9 @@
 # VisitLog
 Mark down 조회수 서비스
 
+## 1차 디자인
+<img src="https://user-images.githubusercontent.com/37145713/92593745-92edb400-f2dc-11ea-8cb2-2ad363b61d9f.png" width="500px"/>
+
 ## 1차 마일 스톤
 
 ![](https://user-images.githubusercontent.com/37145713/92592310-53be6380-f2da-11ea-808a-f0d15d9bafb1.png)
