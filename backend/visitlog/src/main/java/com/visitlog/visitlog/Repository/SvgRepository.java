@@ -1,4 +1,8 @@
 package com.visitlog.visitlog.Repository;
 
-public class SvgRepository {
+import com.visitlog.visitlog.Model.Badge;
+import org.springframework.data.repository.CrudRepository;
+
+public interface SvgRepository extends CrudRepository<Badge,Long> {
+
 }

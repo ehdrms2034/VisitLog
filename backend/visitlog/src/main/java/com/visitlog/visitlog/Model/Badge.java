@@ -1,12 +1,9 @@
 package com.visitlog.visitlog.Model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
 @Entity
 @Table
 @SequenceGenerator(
@@ -14,7 +11,12 @@ import javax.persistence.*;
         sequenceName = "BadgeId",
         initialValue = 1
 )
-public class RequestBadge {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class Badge {
 
     @Id
     @GeneratedValue(
