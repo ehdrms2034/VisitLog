@@ -1,33 +1,46 @@
 package com.visitlog.visitlog.Service.Impl;
 
-import com.visitlog.visitlog.Model.Badge;
+import com.visitlog.visitlog.Model.Today;
+import com.visitlog.visitlog.Model.Total;
 import com.visitlog.visitlog.Model.RequestBadge;
-import com.visitlog.visitlog.Repository.SvgRepository;
+import com.visitlog.visitlog.Repository.TodayRepository;
+import com.visitlog.visitlog.Repository.TotalRepository;
 import com.visitlog.visitlog.Service.SvgService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Service
+@Slf4j
 public class SvgServiceImpl implements SvgService {
 
     @Autowired
-    SvgRepository svgRepository;
+    TotalRepository totalRepository;
+
+    @Autowired
+    TodayRepository todayRepository;
 
     @Override
-    public ResponseEntity<?> makeSVGImageFromData(long badgeId) {
+    public ResponseEntity<?> makeSVGImageFromData(HttpServletRequest request, long badgeId) {
 
         long total = 0;
         long today = 0;
-        Optional<Badge> badge = svgRepository.findById(badgeId);
+        Optional<Total> badge = totalRepository.findById(badgeId);
         if (badge.isPresent()) {
+            Total totalObj = badge.get();
             plusCount(badge.get());
+            makeToday(request,totalObj);
             total = badge.get().getCount();
-            today = badge.get().getCount();
+            today = badge.get().getTodayList().size();
         }
 
         String data = "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n" +
@@ -62,18 +75,32 @@ public class SvgServiceImpl implements SvgService {
     @Override
     @Transactional
     public void makeCount(RequestBadge requestBadge) {
-        Badge badge = Badge.builder()
+        Total total = Total.builder()
                 .count(0)
                 .url(requestBadge.getUrl())
+                .todayList(new ArrayList<>())
                 .build();
-        svgRepository.save(badge);
+        totalRepository.save(total);
     }
 
     @Override
     @Transactional
-    public void plusCount(Badge badge) {
-        badge.setCount(badge.getCount() + 1);
-        svgRepository.save(badge);
+    public void makeToday(HttpServletRequest request, Total total){
+        log.info(request.getLocalName());
+        log.info(request.getHeader("User-Agent"));
+        Today today = Today.builder()
+                .total(total)
+                .fromUrl(request.getHeader("Referer"))
+                .build();
+
+        todayRepository.save(today);
+    }
+
+    @Override
+    @Transactional
+    public void plusCount(Total total) {
+        total.setCount(total.getCount() + 1);
+        totalRepository.save(total);
     }
 
 
