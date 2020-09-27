@@ -1,8 +1,11 @@
 package com.visitlog.visitlog.Model;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table
@@ -16,7 +19,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Badge {
+public class Total {
 
     @Id
     @GeneratedValue(
@@ -27,4 +30,12 @@ public class Badge {
     private String url;
 
     private long count;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdTime;
+
+    @OneToMany(mappedBy = "total",fetch = FetchType.LAZY)
+    List<Today> todayList;
+
 }
