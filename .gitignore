@@ -1,6 +1,0 @@
-
-.DS_Store
-
-backend/visitlog/src/main/resources/application.yml
-
-backend/configserver/src/main/resources/application.yml
