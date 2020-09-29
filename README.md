@@ -10,7 +10,7 @@ Mark down 조회수 서비스
 
 - 방문자 조회수를 Svg 파일로 만드는 visit server 👌
   - Base 62 인코딩을 통한 URL 최적화
-- client측 부하 분산 및 service discovery 서버 담당해줄 eureka
+- client측 부하 분산 및 service discovery 서버 담당해줄 eureka 👌
 - 마이크로 서비스 config 서버 👌
   - RSA 암호화를 통한 기존 정보 암호화
 - 리버스 프록시 zuul 서버
