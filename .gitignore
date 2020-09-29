@@ -8,3 +8,7 @@ backend/configserver/src/main/resources/application.yml
 backend/configserver/src/main/resources/bootstrap.yml
 
 backend/visitlog/src/main/resources/bootstrap.yml
+
+backend/servicediscovery/src/main/resources/application.yml
+
+backend/servicediscovery/src/main/resources/bootstrap.yml
