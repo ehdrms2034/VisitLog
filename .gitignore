@@ -12,3 +12,5 @@ backend/visitlog/src/main/resources/bootstrap.yml
 backend/servicediscovery/src/main/resources/application.yml
 
 backend/servicediscovery/src/main/resources/bootstrap.yml
+
+backend/gateway/src/main/resources/bootstrap.yml
