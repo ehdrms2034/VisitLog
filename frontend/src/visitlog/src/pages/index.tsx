@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import BasicLayout from "./basic";
 import { Button, Input } from "antd";
+import BackgroundImg from './background.jpg';
 
 const Body = styled.div`
   @font-face {
@@ -15,13 +16,13 @@ const Body = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background-image : url(${BackgroundImg});
 `;
 
 const Menu = styled.div`
   display: flex;
   align-items: center;
   height: 45px;
-  border-bottom: 1px solid #cccccc;
   padding-right: 4.5%;
   //#b9e059
 `;
@@ -31,7 +32,7 @@ const MenuBtn = styled.span`
   font-size: 1.3rem;
   cursor: pointer;
   margin-right: 50px;
-  color: #4aa6c2;
+  color: white;
   //#b9e059
 `;
 const HomeBtn = styled(MenuBtn)`
@@ -47,7 +48,6 @@ const Content = styled.div`
   height : 600px;
   justify-content: center;
   align-items: center;
-  background: #4aa6c2;
 `;
 
 const InputBox = styled.div`
@@ -94,9 +94,14 @@ const CustomButton = styled(Button)`
 const Logo = styled.span`
   font-family: NEXON Lv2 Gothic Bold;
   font-size: 3rem;
+  margin-right : 5px;
   color: #333333;
-  margin-bottom: 30px;
+
 `;
+
+const LogoBox = styled.div`
+  margin-bottom: 30px;
+`
 
 const Footer = styled.div`
   height : 15%;
@@ -115,7 +120,11 @@ const HomePage = () => {
 
         <Content>
           <InputBox>
+          <LogoBox>
             <Logo>VisitLog</Logo>
+            <img src="http://localhost/visitlog/badge/0"/>
+          </LogoBox>
+            
             <RowDiv>
               <CustomInput placeholder="Url을 입력해주세요. ex) https://velog.io/@ehdrms2034" />
               <CustomButton>생성</CustomButton>
