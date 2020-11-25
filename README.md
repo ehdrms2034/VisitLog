@@ -34,4 +34,4 @@ Mark down 조회수 서비스
 - 사용자 로그 분석 (ELK 혹은 OpenZipkin)
 - 데이터 그래프화
 - Zenkins
-- 벌크헤드 풀백헤드 (서비스 장애 처리)
+- 벌크헤드 풀백처리 CircuitBraker By 히스트릭스 (서비스 장애 처리)
