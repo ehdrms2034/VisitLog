@@ -12,6 +12,8 @@ public interface SvgService {
 
     public ResponseEntity<?> makeSVGImageFromData(HttpServletRequest request, long badgeId);
 
+    public String getSvgResource(long total,long today);
+
     public void makeCount(RequestBadge requestBadge);
 
     @Transactional

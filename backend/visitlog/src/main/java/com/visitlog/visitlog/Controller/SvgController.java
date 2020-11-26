@@ -19,12 +19,13 @@ public class SvgController {
 
     @RequestMapping(value = "/badge/{badgeId}", method = RequestMethod.GET)
     public ResponseEntity<?> getBadge(@PathVariable long badgeId, HttpServletRequest request,@RequestHeader HttpHeaders header){
-        System.out.println(header);
+//        System.out.println("header");
         return svgService.makeSVGImageFromData(request,badgeId);
     }
 
     @RequestMapping(value = "/badge",method = RequestMethod.POST)
     public CustomResponse makeBadge(@RequestBody RequestBadge requestBadge){
+        System.out.println("header2");
         svgService.makeCount(requestBadge);
         return new CustomResponse("Success","성공적으로 카운트가 생성됐습니다.",null);
     }

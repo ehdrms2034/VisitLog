@@ -5,6 +5,7 @@ import com.visitlog.visitlog.Model.Total;
 import com.visitlog.visitlog.Model.RequestBadge;
 import com.visitlog.visitlog.Repository.TodayRepository;
 import com.visitlog.visitlog.Repository.TotalRepository;
+import com.visitlog.visitlog.Service.RedisHelper;
 import com.visitlog.visitlog.Service.SvgService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class SvgServiceImpl implements SvgService {
     @Autowired
     TodayRepository todayRepository;
 
+//    @Autowired
+//    RedisHelper redisHelper;
+
     @Override
     public ResponseEntity<?> makeSVGImageFromData(HttpServletRequest request, long badgeId) {
 
@@ -43,7 +47,16 @@ public class SvgServiceImpl implements SvgService {
             today = badge.get().getTodayList().size();
         }
 
-        String data = "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n" +
+        String data = getSvgResource(total,today);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.valueOf("image/svg+xml"))
+                .body(data);
+    }
+
+    @Override
+    public String getSvgResource(long total, long today) {
+        return "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n" +
                 "<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\n" +
                 "    height=\"20\"\n" +
                 "    width=\"100\"\n" +
@@ -66,10 +79,6 @@ public class SvgServiceImpl implements SvgService {
                 "    </text>\n" +
                 "\n" +
                 "</svg>";
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.valueOf("image/svg+xml"))
-                .body(data);
     }
 
     @Override
@@ -86,13 +95,9 @@ public class SvgServiceImpl implements SvgService {
     @Override
     @Transactional
     public void makeToday(HttpServletRequest request, Total total){
-        log.info(request.getLocalName());
-        log.info(request.getHeader("User-Agent"));
         Today today = Today.builder()
                 .total(total)
-                .fromUrl(request.getHeader("Referer"))
                 .build();
-
         todayRepository.save(today);
     }
 
